@@ -1,57 +1,69 @@
 import React, { useState } from 'react';
 import LoginForm from '../components/auth/LoginForm';
 import RegisterForm from '../components/auth/RegisterForm';
-import ForgotPasswordModal from '../components/auth/ForgotPasswordModal';
-import { Car, Sparkles, ShieldCheck } from 'lucide-react';
+import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
+import { Car, ShieldCheck } from 'lucide-react';
 
 export default function LoginPage() {
-  const [isRegistering, setIsRegistering] = useState(false);
-  const [forgotModalOpen, setForgotModalOpen] = useState(false);
+  const [authView, setAuthView] = useState('login');
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-between items-center p-4 relative overflow-hidden">
+    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-slate-50 text-slate-900 overflow-hidden font-sans">
       
-      {/* Glow Orbs Background */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/10 blur-3xl pointer-events-none rounded-full" />
-      <div className="absolute bottom-10 left-10 w-72 h-72 bg-indigo-500/10 blur-3xl pointer-events-none rounded-full" />
-
-      {/* Top Brand Bar */}
-      <div className="pt-8 flex items-center gap-3 relative z-10">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-          <Car className="w-6 h-6 text-white" />
+      {/* LEFT SIDE: Auth Form & CARVO Branding Section */}
+      <div className="w-full lg:w-[45%] xl:w-[40%] bg-white border-r border-slate-200/80 flex flex-col justify-between p-6 sm:p-10 relative z-20 min-h-screen">
+        
+        {/* Top Brand Logo */}
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white shadow-md shadow-red-500/25">
+            <Car className="w-5 h-5" />
+          </div>
+          <span className="text-xl font-black text-slate-900 tracking-tight">CARVO</span>
         </div>
-        <div>
-          <span className="text-2xl font-black text-white tracking-tight">DrivePulse</span>
-          <span className="block text-xs font-semibold text-cyan-400">CAR RENTAL MANAGEMENT SYSTEM</span>
+
+        {/* Center Auth Card Container */}
+        <div className="my-auto py-8 w-full max-w-md mx-auto">
+          {authView === 'login' && (
+            <LoginForm
+              onSwitchToRegister={() => setAuthView('register')}
+              onOpenForgot={() => setAuthView('forgot')}
+            />
+          )}
+
+          {authView === 'register' && (
+            <RegisterForm
+              onSwitchToLogin={() => setAuthView('login')}
+            />
+          )}
+
+          {authView === 'forgot' && (
+            <ForgotPasswordForm
+              onSwitchToLogin={() => setAuthView('login')}
+            />
+          )}
         </div>
+
+        {/* Bottom Footer Info */}
+        <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+          <span>© 2026 CARVO Fleet Management</span>
+          <div className="flex items-center gap-1 text-slate-500 font-medium">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <span>Secure System</span>
+          </div>
+        </div>
+
       </div>
 
-      {/* Main Auth Form Container */}
-      <div className="my-auto relative z-10 w-full flex justify-center py-6">
-        {isRegistering ? (
-          <RegisterForm onSwitchToLogin={() => setIsRegistering(false)} />
-        ) : (
-          <LoginForm
-            onSwitchToRegister={() => setIsRegistering(true)}
-            onOpenForgot={() => setForgotModalOpen(true)}
-          />
-        )}
+      {/* RIGHT SIDE: Crystal Clear Supercar Showcase */}
+      <div className="hidden lg:block lg:w-[55%] xl:w-[60%] relative overflow-hidden bg-slate-900">
+        <div 
+          className="absolute inset-0 bg-cover bg-center transition-all duration-1000 transform hover:scale-105"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80')`
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-transparent to-slate-950/20" />
       </div>
-
-      {/* Footer info */}
-      <div className="pb-6 text-center text-xs text-slate-500 relative z-10 flex items-center gap-4">
-        <span>© 2026 DrivePulse Inc. All rights reserved.</span>
-        <span>•</span>
-        <span className="flex items-center gap-1 text-slate-400">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Module 1-5 Completed
-        </span>
-      </div>
-
-      {/* Forgot Password Modal */}
-      <ForgotPasswordModal
-        isOpen={forgotModalOpen}
-        onClose={() => setForgotModalOpen(false)}
-      />
 
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Filter, ArrowUpDown } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export default function CarFilterBar({
   search,
@@ -15,18 +15,18 @@ export default function CarFilterBar({
   brandsList = []
 }) {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-xl">
+    <div className="bg-white border border-slate-200/80 rounded-2xl p-4 space-y-3 shadow-xs">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
         
         {/* Search */}
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search model or brand..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+            className="w-full bg-slate-100/80 border-none rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/20"
           />
         </div>
 
@@ -35,7 +35,7 @@ export default function CarFilterBar({
           <select
             value={brand}
             onChange={(e) => setBrand(e.target.value)}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+            className="w-full bg-slate-100/80 border-none rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
           >
             <option value="All">All Brands</option>
             {brandsList.map((b) => (
@@ -49,7 +49,7 @@ export default function CarFilterBar({
           <select
             value={fuelType}
             onChange={(e) => setFuelType(e.target.value)}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+            className="w-full bg-slate-100/80 border-none rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
           >
             <option value="All">All Fuel Types</option>
             <option value="Electric">Electric</option>
@@ -64,7 +64,7 @@ export default function CarFilterBar({
           <select
             value={transmission}
             onChange={(e) => setTransmission(e.target.value)}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+            className="w-full bg-slate-100/80 border-none rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
           >
             <option value="All">All Transmissions</option>
             <option value="Automatic">Automatic</option>
@@ -77,7 +77,7 @@ export default function CarFilterBar({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+            className="w-full bg-slate-100/80 border-none rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
           >
             <option value="default">Sort By Default</option>
             <option value="price-asc">Price: Low to High</option>

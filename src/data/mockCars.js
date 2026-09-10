@@ -10,9 +10,16 @@ export const initialCars = [
     range: "315 miles",
     rating: 4.9,
     reviewsCount: 42,
-    image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=800&q=80",
-    features: ["Autopilot", "360 Camera", "Heated Seats", "Premium Audio", "Supercharging"],
-    available: true
+    image:
+      "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Autopilot",
+      "360 Camera",
+      "Heated Seats",
+      "Premium Audio",
+      "Supercharging",
+    ],
+    available: true,
   },
   {
     id: "car-2",
@@ -24,9 +31,15 @@ export const initialCars = [
     fuelType: "Petrol",
     rating: 4.8,
     reviewsCount: 28,
-    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80",
-    features: ["503 HP M TwinPower", "Head-Up Display", "Harman Kardon", "Leather Interior"],
-    available: true
+    image:
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "503 HP M TwinPower",
+      "Head-Up Display",
+      "Harman Kardon",
+      "Leather Interior",
+    ],
+    available: true,
   },
   {
     id: "car-3",
@@ -38,9 +51,15 @@ export const initialCars = [
     fuelType: "Hybrid",
     rating: 4.7,
     reviewsCount: 35,
-    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
-    features: ["MBUX Infotainment", "Ambient Lighting", "Sunroof", "Adaptive Cruise"],
-    available: true
+    image:
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "MBUX Infotainment",
+      "Ambient Lighting",
+      "Sunroof",
+      "Adaptive Cruise",
+    ],
+    available: true,
   },
   {
     id: "car-4",
@@ -52,9 +71,15 @@ export const initialCars = [
     fuelType: "Petrol",
     rating: 5.0,
     reviewsCount: 19,
-    image: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=800&q=80",
-    features: ["Sport Chrono Package", "Bose Surround", "PASM Suspension", "Launch Control"],
-    available: true
+    image:
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Sport Chrono Package",
+      "Bose Surround",
+      "PASM Suspension",
+      "Launch Control",
+    ],
+    available: true,
   },
   {
     id: "car-5",
@@ -66,9 +91,15 @@ export const initialCars = [
     fuelType: "Hybrid",
     rating: 4.6,
     reviewsCount: 56,
-    image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80",
-    features: ["All-Wheel Drive", "Apple CarPlay", "Safety Sense 2.5", "Large Cargo Space"],
-    available: true
+    image:
+      "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "All-Wheel Drive",
+      "Apple CarPlay",
+      "Safety Sense 2.5",
+      "Large Cargo Space",
+    ],
+    available: true,
   },
   {
     id: "car-6",
@@ -80,9 +111,15 @@ export const initialCars = [
     fuelType: "Petrol",
     rating: 4.8,
     reviewsCount: 31,
-    image: "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=800&q=80",
-    features: ["5.0L V8 Engine", "Active Exhaust", "Digital Cluster", "Track Apps"],
-    available: true
+    image:
+      "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "5.0L V8 Engine",
+      "Active Exhaust",
+      "Digital Cluster",
+      "Track Apps",
+    ],
+    available: true,
   },
   {
     id: "car-7",
@@ -94,9 +131,15 @@ export const initialCars = [
     fuelType: "Diesel",
     rating: 4.7,
     reviewsCount: 22,
-    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=800&q=80",
-    features: ["7-Seater Capacity", "Virtual Cockpit", "Air Suspension", "Panoramic Roof"],
-    available: false
+    image:
+      "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "7-Seater Capacity",
+      "Virtual Cockpit",
+      "Air Suspension",
+      "Panoramic Roof",
+    ],
+    available: false,
   },
   {
     id: "car-8",
@@ -108,10 +151,16 @@ export const initialCars = [
     fuelType: "Electric",
     rating: 4.9,
     reviewsCount: 38,
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80",
-    features: ["Ultra-Fast 800V Charging", "V2L Power", "Sliding Console", "HUD Tech"],
-    available: true
-  }
+    image:
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Ultra-Fast 800V Charging",
+      "V2L Power",
+      "Sliding Console",
+      "HUD Tech",
+    ],
+    available: true,
+  },
 ];
 
 export const initialBookings = [
@@ -119,7 +168,8 @@ export const initialBookings = [
     id: "BK-9021",
     carId: "car-1",
     carName: "Tesla Model 3 Performance",
-    carImage: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=800&q=80",
+    carImage:
+      "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=800&q=80",
     customerName: "Suresh Kumar",
     customerEmail: "suresh@example.com",
     customerPhone: "+91 98765 43210",
@@ -128,13 +178,14 @@ export const initialBookings = [
     totalDays: 3,
     totalPrice: 267,
     status: "Confirmed",
-    createdAt: "2026-09-10"
+    createdAt: "2026-09-10",
   },
   {
     id: "BK-8840",
     carId: "car-3",
     carName: "Mercedes-Benz C-Class",
-    carImage: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
+    carImage:
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
     customerName: "Anita Rao",
     customerEmail: "anita@example.com",
     customerPhone: "+91 91234 56789",
@@ -143,6 +194,8 @@ export const initialBookings = [
     totalDays: 3,
     totalPrice: 285,
     status: "Completed",
-    createdAt: "2026-08-30"
-  }
+    createdAt: "2026-08-30",
+  },
 ];
+
+////////

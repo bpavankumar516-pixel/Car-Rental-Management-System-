@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CalendarPlus, Search, CheckCircle, XCircle, Clock, DollarSign } from 'lucide-react';
+import { CalendarPlus, Search, CheckCircle, XCircle } from 'lucide-react';
 import { useBookings } from '../context/BookingContext';
 import { useToast } from '../context/ToastContext';
 import ConfirmDialog from '../components/common/ConfirmDialog';
@@ -40,37 +40,37 @@ export default function BookingsPage({ onOpenNewBooking }) {
     <div className="space-y-6">
       
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs">
         <div>
-          <h2 className="text-xl font-bold text-white">Rental Reservations & History</h2>
-          <p className="text-xs text-slate-400">Total Bookings: {bookings.length} Records</p>
+          <h2 className="text-xl font-black text-slate-900 tracking-tight">Reservations & Rental History</h2>
+          <p className="text-xs text-slate-500 mt-0.5">Total Bookings: {bookings.length} Records</p>
         </div>
 
         <button
           onClick={onOpenNewBooking}
-          className="w-full sm:w-auto px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all cursor-pointer"
+          className="w-full sm:w-auto px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-red-500/25 transition-all cursor-pointer"
         >
           <CalendarPlus className="w-4 h-4" /> Create New Reservation
         </button>
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center gap-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl">
+      <div className="flex flex-col sm:flex-row items-center gap-3 bg-white border border-slate-200/80 p-4 rounded-2xl shadow-xs">
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search by ID, Customer, or Car..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+            className="w-full bg-slate-100/80 border-none rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/20"
           />
         </div>
 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="w-full sm:w-48 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+          className="w-full sm:w-48 bg-slate-100/80 border-none rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
         >
           <option value="All">All Statuses</option>
           <option value="Active">Active Rentals</option>
@@ -80,7 +80,7 @@ export default function BookingsPage({ onOpenNewBooking }) {
       </div>
 
       {/* Bookings Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-white border border-slate-200/80 rounded-2xl overflow-hidden shadow-xs">
         {filteredBookings.length === 0 ? (
           <div className="py-12 text-center text-slate-500 text-sm">
             No bookings found matching search criteria.
@@ -88,7 +88,7 @@ export default function BookingsPage({ onOpenNewBooking }) {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-800/80 text-slate-400 font-semibold uppercase tracking-wider">
+              <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100">
                 <tr>
                   <th className="p-4">Reservation ID</th>
                   <th className="p-4">Vehicle Model</th>
@@ -99,28 +99,28 @@ export default function BookingsPage({ onOpenNewBooking }) {
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-300">
+              <tbody className="divide-y divide-slate-100 text-slate-700">
                 {filteredBookings.map((b) => (
-                  <tr key={b.id} className="hover:bg-slate-800/40 transition-colors">
-                    <td className="p-4 font-bold text-cyan-400">{b.id}</td>
-                    <td className="p-4 font-semibold text-white">{b.carName}</td>
+                  <tr key={b.id} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="p-4 font-bold text-red-600">{b.id}</td>
+                    <td className="p-4 font-bold text-slate-900">{b.carName}</td>
                     <td className="p-4">
-                      <div className="font-semibold text-white">{b.customerName}</div>
+                      <div className="font-bold text-slate-900">{b.customerName}</div>
                       <div className="text-[11px] text-slate-400">{b.customerMobile}</div>
                     </td>
-                    <td className="p-4 text-slate-400">
+                    <td className="p-4 text-slate-500">
                       <div>{b.pickupDate} → {b.returnDate}</div>
-                      <div className="text-[11px] text-cyan-400 font-bold">{b.totalDays} Days</div>
+                      <div className="text-[11px] text-red-500 font-bold">{b.totalDays} Days</div>
                     </td>
-                    <td className="p-4 font-extrabold text-emerald-400 text-sm">${b.totalCost}</td>
+                    <td className="p-4 font-black text-emerald-600 text-sm">${b.totalCost}</td>
                     <td className="p-4">
                       <span
-                        className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider ${
-                          b.status === 'Active'
-                            ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                        className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                          b.status === 'Active' || b.status === 'Confirmed'
+                            ? 'bg-red-500 text-white'
                             : b.status === 'Completed'
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                            : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                            ? 'bg-emerald-500 text-white'
+                            : 'bg-slate-200 text-slate-700'
                         }`}
                       >
                         {b.status}
@@ -132,14 +132,14 @@ export default function BookingsPage({ onOpenNewBooking }) {
                           <button
                             onClick={() => handleComplete(b.id, b.carId)}
                             title="Complete Rental"
-                            className="px-2.5 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 rounded-xl font-bold text-[11px] transition-colors cursor-pointer flex items-center gap-1"
+                            className="px-2.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-xl font-bold text-[11px] transition-colors cursor-pointer flex items-center gap-1"
                           >
                             <CheckCircle className="w-3.5 h-3.5" /> Complete
                           </button>
                           <button
                             onClick={() => setCancelTarget(b)}
                             title="Cancel Booking"
-                            className="px-2.5 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 rounded-xl font-bold text-[11px] transition-colors cursor-pointer flex items-center gap-1"
+                            className="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded-xl font-bold text-[11px] transition-colors cursor-pointer flex items-center gap-1"
                           >
                             <XCircle className="w-3.5 h-3.5" /> Cancel
                           </button>

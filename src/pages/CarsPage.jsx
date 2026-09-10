@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PlusCircle, Car, AlertCircle } from 'lucide-react';
+import { PlusCircle, Car } from 'lucide-react';
 import { useCars } from '../context/CarContext';
 import { useToast } from '../context/ToastContext';
 import CarCard from '../components/cars/CarCard';
@@ -18,10 +18,8 @@ export default function CarsPage({ onOpenAddModal, onOpenEditModal, onOpenDetail
   const [sortBy, setSortBy] = useState('default');
   const [deleteTargetId, setDeleteTargetId] = useState(null);
 
-  // Extract unique brands list dynamically
   const brandsList = Array.from(new Set(cars.map((c) => c.brand)));
 
-  // Filter cars logic
   let filteredCars = cars.filter((car) => {
     const activeSearch = search || globalSearch;
     const matchesSearch =
@@ -36,7 +34,6 @@ export default function CarsPage({ onOpenAddModal, onOpenEditModal, onOpenDetail
     return matchesSearch && matchesBrand && matchesFuel && matchesTrans;
   });
 
-  // Sorting
   if (sortBy === 'price-asc') {
     filteredCars.sort((a, b) => a.pricePerDay - b.pricePerDay);
   } else if (sortBy === 'price-desc') {
@@ -57,15 +54,15 @@ export default function CarsPage({ onOpenAddModal, onOpenEditModal, onOpenDetail
     <div className="space-y-6">
       
       {/* Top Header Control */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs">
         <div>
-          <h2 className="text-xl font-bold text-white">Car Fleet Management</h2>
-          <p className="text-xs text-slate-400">Total Cars: {cars.length} Vehicles in System</p>
+          <h2 className="text-xl font-black text-slate-900 tracking-tight">Car Fleet Inventory</h2>
+          <p className="text-xs text-slate-500 mt-0.5">Total Fleet: {cars.length} Vehicles in System</p>
         </div>
 
         <button
           onClick={onOpenAddModal}
-          className="w-full sm:w-auto px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all cursor-pointer"
+          className="w-full sm:w-auto px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-red-500/25 transition-all cursor-pointer"
         >
           <PlusCircle className="w-4 h-4" /> Add New Vehicle
         </button>
@@ -89,23 +86,22 @@ export default function CarsPage({ onOpenAddModal, onOpenEditModal, onOpenDetail
       {/* Main Grid View */}
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
+          {[1, 2, 3, 4].map((i) => (
             <CarCardSkeleton key={i} />
           ))}
         </div>
       ) : filteredCars.length === 0 ? (
-        /* Empty State UI */
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-12 text-center space-y-4 shadow-xl my-8">
-          <div className="w-16 h-16 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center mx-auto">
+        <div className="bg-white border border-slate-200/80 rounded-3xl p-12 text-center space-y-4 shadow-xs my-8">
+          <div className="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
             <Car className="w-8 h-8" />
           </div>
-          <h3 className="text-lg font-bold text-white">No Cars Match Your Filter</h3>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto">
+          <h3 className="text-lg font-bold text-slate-900">No Cars Match Your Filter</h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
             Try resetting your search query or brand/fuel filters to view available vehicles.
           </p>
           <button
             onClick={() => { setSearch(''); setBrand('All'); setFuelType('All'); setTransmission('All'); setSortBy('default'); }}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 font-semibold rounded-xl text-xs"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs cursor-pointer"
           >
             Reset Filters
           </button>

@@ -7,7 +7,6 @@ export default function NewBookingModal({ isOpen, onClose, selectedCarPreload = 
   const { cars } = useCars();
   const { customers } = useCustomers();
 
-  // Filter only Available cars
   const availableCars = cars.filter((c) => c.availabilityStatus === 'Available' || c.id === selectedCarPreload?.id);
 
   const [selectedCustomerId, setSelectedCustomerId] = useState('');
@@ -24,7 +23,6 @@ export default function NewBookingModal({ isOpen, onClose, selectedCarPreload = 
       setSelectedCarId(availableCars[0].id);
     }
 
-    // Default dates: tomorrow to +3 days
     const today = new Date();
     const start = new Date(today);
     start.setDate(today.getDate() + 1);
@@ -39,7 +37,6 @@ export default function NewBookingModal({ isOpen, onClose, selectedCarPreload = 
   const targetCar = cars.find((c) => c.id === selectedCarId);
   const targetCustomer = customers.find((cust) => cust.id === selectedCustomerId);
 
-  // Auto-calculate total rental days
   const calculateDays = () => {
     if (!pickupDate || !returnDate) return 0;
     const start = new Date(pickupDate);
@@ -92,14 +89,14 @@ export default function NewBookingModal({ isOpen, onClose, selectedCarPreload = 
         
         {/* Customer Select */}
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-slate-300">Select Customer</label>
+          <label className="text-xs font-semibold text-slate-700">Select Customer</label>
           {customers.length === 0 ? (
-            <p className="text-xs text-red-400">No customers registered yet. Please add a customer first.</p>
+            <p className="text-xs text-red-500">No customers registered yet. Please add a customer first.</p>
           ) : (
             <select
               value={selectedCustomerId}
               onChange={(e) => setSelectedCustomerId(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             >
               {customers.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -108,19 +105,19 @@ export default function NewBookingModal({ isOpen, onClose, selectedCarPreload = 
               ))}
             </select>
           )}
-          {errors.customer && <p className="text-[11px] text-red-400">{errors.customer}</p>}
+          {errors.customer && <p className="text-[11px] text-red-500 font-medium">{errors.customer}</p>}
         </div>
 
         {/* Car Select */}
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-slate-300">Select Available Vehicle</label>
+          <label className="text-xs font-semibold text-slate-700">Select Available Vehicle</label>
           {availableCars.length === 0 ? (
-            <p className="text-xs text-red-400">No cars are currently available for booking.</p>
+            <p className="text-xs text-red-500">No cars are currently available for booking.</p>
           ) : (
             <select
               value={selectedCarId}
               onChange={(e) => setSelectedCarId(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             >
               {availableCars.map((car) => (
                 <option key={car.id} value={car.id}>
@@ -129,65 +126,65 @@ export default function NewBookingModal({ isOpen, onClose, selectedCarPreload = 
               ))}
             </select>
           )}
-          {errors.car && <p className="text-[11px] text-red-400">{errors.car}</p>}
+          {errors.car && <p className="text-[11px] text-red-500 font-medium">{errors.car}</p>}
         </div>
 
         {/* Dates */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Pickup Date</label>
+            <label className="text-xs font-semibold text-slate-700">Pickup Date</label>
             <input
               type="date"
               value={pickupDate}
               onChange={(e) => setPickupDate(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             />
-            {errors.pickupDate && <p className="text-[11px] text-red-400">{errors.pickupDate}</p>}
+            {errors.pickupDate && <p className="text-[11px] text-red-500 font-medium">{errors.pickupDate}</p>}
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Return Date</label>
+            <label className="text-xs font-semibold text-slate-700">Return Date</label>
             <input
               type="date"
               value={returnDate}
               onChange={(e) => setReturnDate(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             />
-            {errors.returnDate && <p className="text-[11px] text-red-400">{errors.returnDate}</p>}
+            {errors.returnDate && <p className="text-[11px] text-red-500 font-medium">{errors.returnDate}</p>}
           </div>
         </div>
 
-        {/* Calculation Realtime Summary Box */}
+        {/* Summary Box */}
         {targetCar && (
-          <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 space-y-2">
-            <div className="flex items-center justify-between text-xs text-slate-300">
+          <div className="p-4 rounded-2xl bg-red-50/50 border border-red-100 space-y-2">
+            <div className="flex items-center justify-between text-xs text-slate-600">
               <span>Daily Rate:</span>
-              <span className="font-bold text-white">${targetCar.pricePerDay}/day</span>
+              <span className="font-bold text-slate-900">${targetCar.pricePerDay}/day</span>
             </div>
-            <div className="flex items-center justify-between text-xs text-slate-300">
+            <div className="flex items-center justify-between text-xs text-slate-600">
               <span>Rental Duration:</span>
-              <span className="font-bold text-cyan-400">{totalDays} Days</span>
+              <span className="font-bold text-red-600">{totalDays} Days</span>
             </div>
-            <div className="pt-2 border-t border-cyan-500/30 flex items-center justify-between">
-              <span className="text-sm font-bold text-white">Estimated Total Cost:</span>
-              <span className="text-xl font-extrabold text-emerald-400">${totalCost}</span>
+            <div className="pt-2 border-t border-red-200/60 flex items-center justify-between">
+              <span className="text-sm font-bold text-slate-900">Estimated Total Cost:</span>
+              <span className="text-xl font-extrabold text-emerald-600">${totalCost}</span>
             </div>
           </div>
         )}
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+        <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white"
+            className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={totalDays <= 0 || !targetCar}
-            className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 text-slate-950 font-bold rounded-xl text-xs shadow-md shadow-cyan-500/20"
+            className="px-5 py-2.5 bg-red-500 hover:bg-red-600 disabled:opacity-50 text-white font-bold rounded-xl text-xs shadow-md shadow-red-500/25 cursor-pointer"
           >
             Review Booking Summary
           </button>

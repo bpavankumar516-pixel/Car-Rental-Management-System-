@@ -39,88 +39,88 @@ export default function RegisterForm({ onSwitchToLogin }) {
   };
 
   return (
-    <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
-      <div className="text-center space-y-2">
-        <h2 className="text-2xl font-extrabold text-white">Create New Account</h2>
-        <p className="text-xs text-slate-400">Join DrivePulse to manage fleet & bookings</p>
+    <div className="w-full space-y-6">
+      <div className="space-y-1.5">
+        <h2 className="text-3xl font-black text-slate-900 tracking-tight">Create Account</h2>
+        <p className="text-xs text-slate-500">Join CARVO Fleet Management Portal</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Name Field */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-slate-300">Full Name</label>
+          <label className="text-xs font-bold text-slate-700">Full Name</label>
           <div className="relative">
-            <User className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Suresh Kumar"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className={`w-full bg-slate-800/90 border ${
-                errors.name ? 'border-red-500' : 'border-slate-700'
-              } rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors`}
+              className={`w-full bg-white border ${
+                errors.name ? 'border-red-500' : 'border-slate-200'
+              } rounded-xl pl-10 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-colors shadow-xs`}
             />
           </div>
-          {errors.name && <p className="text-[11px] text-red-400 font-medium">{errors.name}</p>}
+          {errors.name && <p className="text-[11px] text-red-500 font-medium">{errors.name}</p>}
         </div>
 
         {/* Email Field */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-slate-300">Email Address</label>
+          <label className="text-xs font-bold text-slate-700">Email Address</label>
           <div className="relative">
-            <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="email"
               placeholder="suresh@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`w-full bg-slate-800/90 border ${
-                errors.email ? 'border-red-500' : 'border-slate-700'
-              } rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors`}
+              className={`w-full bg-white border ${
+                errors.email ? 'border-red-500' : 'border-slate-200'
+              } rounded-xl pl-10 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-colors shadow-xs`}
             />
           </div>
-          {errors.email && <p className="text-[11px] text-red-400 font-medium">{errors.email}</p>}
+          {errors.email && <p className="text-[11px] text-red-500 font-medium">{errors.email}</p>}
         </div>
 
         {/* Password Field */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-slate-300">Password</label>
+          <label className="text-xs font-bold text-slate-700">Password</label>
           <div className="relative">
-            <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={`w-full bg-slate-800/90 border ${
-                errors.password ? 'border-red-500' : 'border-slate-700'
-              } rounded-xl pl-10 pr-10 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors`}
+              className={`w-full bg-white border ${
+                errors.password ? 'border-red-500' : 'border-slate-200'
+              } rounded-xl pl-10 pr-10 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-colors shadow-xs`}
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
-          {errors.password && <p className="text-[11px] text-red-400 font-medium">{errors.password}</p>}
+          {errors.password && <p className="text-[11px] text-red-500 font-medium">{errors.password}</p>}
         </div>
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all duration-200 cursor-pointer active:scale-[0.98]"
+          className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md shadow-red-500/25 transition-all duration-200 cursor-pointer active:scale-[0.98] text-sm"
         >
           Create Account <ArrowRight className="w-4 h-4" />
         </button>
       </form>
 
-      <div className="text-center pt-2 border-t border-slate-800">
-        <p className="text-xs text-slate-400">
+      <div className="text-center pt-2 border-t border-slate-100">
+        <p className="text-xs text-slate-500">
           Already registered?{' '}
           <button
             onClick={onSwitchToLogin}
-            className="text-cyan-400 font-semibold hover:underline cursor-pointer"
+            className="text-red-600 font-bold hover:underline cursor-pointer"
           >
             Sign In Instead
           </button>

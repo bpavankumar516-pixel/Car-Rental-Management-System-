@@ -21,30 +21,30 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={{ addToast }}>
       {children}
-      {/* Toast Render Floating Banner */}
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full">
+      {/* Toast Render Floating Banner - Top Right Positioned with CARVO Light Theme */}
+      <div className="fixed top-6 right-6 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none">
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`flex items-center justify-between p-4 rounded-xl shadow-2xl border backdrop-blur-md transition-all duration-300 animate-slide-in ${
+            className={`pointer-events-auto flex items-center justify-between p-3.5 rounded-xl shadow-lg border border-slate-200/90 bg-white/95 backdrop-blur-md border-l-4 transition-all duration-300 animate-slide-in ${
               toast.type === 'success'
-                ? 'bg-emerald-950/90 border-emerald-700/60 text-emerald-200'
+                ? 'border-l-emerald-500'
                 : toast.type === 'error'
-                ? 'bg-red-950/90 border-red-700/60 text-red-200'
-                : 'bg-slate-900/90 border-cyan-700/60 text-cyan-200'
+                ? 'border-l-red-500'
+                : 'border-l-red-600'
             }`}
           >
             <div className="flex items-center gap-3">
-              {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />}
-              {toast.type === 'error' && <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />}
-              {toast.type === 'info' && <Info className="w-5 h-5 text-cyan-400 shrink-0" />}
-              <p className="text-sm font-medium">{toast.message}</p>
+              {toast.type === 'success' && <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />}
+              {toast.type === 'error' && <AlertCircle className="w-4 h-4 text-red-500 shrink-0" />}
+              {toast.type === 'info' && <Info className="w-4 h-4 text-red-600 shrink-0" />}
+              <p className="text-xs font-medium text-slate-700">{toast.message}</p>
             </div>
             <button
               onClick={() => removeToast(toast.id)}
-              className="text-slate-400 hover:text-white p-1"
+              className="text-slate-400 hover:text-slate-600 p-1 transition-colors cursor-pointer rounded-lg hover:bg-slate-100"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
           </div>
         ))}

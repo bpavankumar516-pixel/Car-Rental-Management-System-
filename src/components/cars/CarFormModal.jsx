@@ -76,63 +76,63 @@ export default function CarFormModal({ isOpen, onClose, initialData = null }) {
         {/* Brand & Model */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Brand Name</label>
+            <label className="text-xs font-semibold text-slate-700">Brand Name</label>
             <input
               type="text"
               placeholder="e.g. Tesla, BMW, Audi"
               value={formData.brand}
               onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             />
-            {errors.brand && <p className="text-[11px] text-red-400">{errors.brand}</p>}
+            {errors.brand && <p className="text-[11px] text-red-500 font-medium">{errors.brand}</p>}
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Model Name</label>
+            <label className="text-xs font-semibold text-slate-700">Model Name</label>
             <input
               type="text"
               placeholder="e.g. Model Y, M5"
               value={formData.model}
               onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             />
-            {errors.model && <p className="text-[11px] text-red-400">{errors.model}</p>}
+            {errors.model && <p className="text-[11px] text-red-500 font-medium">{errors.model}</p>}
           </div>
         </div>
 
         {/* Year & Daily Rate */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Manufacturing Year</label>
+            <label className="text-xs font-semibold text-slate-700">Manufacturing Year</label>
             <input
               type="number"
               value={formData.year}
               onChange={(e) => setFormData({ ...formData, year: Number(e.target.value) })}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             />
-            {errors.year && <p className="text-[11px] text-red-400">{errors.year}</p>}
+            {errors.year && <p className="text-[11px] text-red-500 font-medium">{errors.year}</p>}
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Price Per Day ($)</label>
+            <label className="text-xs font-semibold text-slate-700">Price Per Day ($)</label>
             <input
               type="number"
               value={formData.pricePerDay}
               onChange={(e) => setFormData({ ...formData, pricePerDay: Number(e.target.value) })}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             />
-            {errors.pricePerDay && <p className="text-[11px] text-red-400">{errors.pricePerDay}</p>}
+            {errors.pricePerDay && <p className="text-[11px] text-red-500 font-medium">{errors.pricePerDay}</p>}
           </div>
         </div>
 
         {/* Fuel & Transmission */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Fuel Type</label>
+            <label className="text-xs font-semibold text-slate-700">Fuel Type</label>
             <select
               value={formData.fuelType}
               onChange={(e) => setFormData({ ...formData, fuelType: e.target.value })}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             >
               <option value="Electric">Electric</option>
               <option value="Petrol">Petrol</option>
@@ -142,11 +142,11 @@ export default function CarFormModal({ isOpen, onClose, initialData = null }) {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Transmission</label>
+            <label className="text-xs font-semibold text-slate-700">Transmission</label>
             <select
               value={formData.transmission}
               onChange={(e) => setFormData({ ...formData, transmission: e.target.value })}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             >
               <option value="Automatic">Automatic</option>
               <option value="Manual">Manual</option>
@@ -154,12 +154,12 @@ export default function CarFormModal({ isOpen, onClose, initialData = null }) {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Seating Capacity</label>
+            <label className="text-xs font-semibold text-slate-700">Seating Capacity</label>
             <input
               type="number"
               value={formData.seatingCapacity}
               onChange={(e) => setFormData({ ...formData, seatingCapacity: Number(e.target.value) })}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             />
           </div>
         </div>
@@ -167,11 +167,11 @@ export default function CarFormModal({ isOpen, onClose, initialData = null }) {
         {/* Status & Image URL */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Availability Status</label>
+            <label className="text-xs font-semibold text-slate-700">Availability Status</label>
             <select
               value={formData.availabilityStatus}
               onChange={(e) => setFormData({ ...formData, availabilityStatus: e.target.value })}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             >
               <option value="Available">Available</option>
               <option value="Booked">Booked</option>
@@ -180,28 +180,28 @@ export default function CarFormModal({ isOpen, onClose, initialData = null }) {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Image URL (Optional)</label>
+            <label className="text-xs font-semibold text-slate-700">Image URL (Optional)</label>
             <input
               type="url"
               placeholder="https://images.unsplash.com/..."
               value={formData.image}
               onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:border-cyan-500"
+              className="w-full bg-slate-100/80 border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500/20"
             />
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white"
+            className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-xs shadow-md shadow-cyan-500/20"
+            className="px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-xs shadow-md shadow-red-500/25 cursor-pointer"
           >
             {initialData ? 'Save Changes' : 'Add Vehicle'}
           </button>

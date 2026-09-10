@@ -13,6 +13,10 @@ import DashboardPage from './pages/DashboardPage';
 import CarsPage from './pages/CarsPage';
 import CustomersPage from './pages/CustomersPage';
 import BookingsPage from './pages/BookingsPage';
+import ProfilePage from './pages/ProfilePage';
+import SettingsPage from './pages/SettingsPage';
+import PromotionsPage from './pages/PromotionsPage';
+import ContactPage from './pages/ContactPage';
 
 // Modals
 import CarFormModal from './components/cars/CarFormModal';
@@ -79,20 +83,21 @@ function MainApp() {
   };
 
   return (
-    <div className="flex h-screen bg-slate-950 text-slate-100 overflow-hidden font-sans">
+    <div className="flex h-screen bg-slate-50 text-slate-900 overflow-hidden font-sans antialiased">
       
       {/* Sidebar Navigation */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50">
         <Header
           activeTab={activeTab}
+          setActiveTab={setActiveTab}
           globalSearch={globalSearch}
           setGlobalSearch={setGlobalSearch}
         />
 
-        <main className="flex-1 overflow-y-auto p-6 sm:p-8">
+        <main className="flex-1 overflow-y-auto p-5 sm:p-6 lg:p-8 bg-slate-50">
           <div className="max-w-7xl mx-auto space-y-6">
             {activeTab === 'dashboard' && (
               <DashboardPage
@@ -124,6 +129,22 @@ function MainApp() {
               <BookingsPage
                 onOpenNewBooking={() => handleOpenBookModal()}
               />
+            )}
+
+            {activeTab === 'promotions' && (
+              <PromotionsPage />
+            )}
+
+            {activeTab === 'contact' && (
+              <ContactPage />
+            )}
+
+            {activeTab === 'profile' && (
+              <ProfilePage />
+            )}
+
+            {activeTab === 'settings' && (
+              <SettingsPage />
             )}
           </div>
         </main>
