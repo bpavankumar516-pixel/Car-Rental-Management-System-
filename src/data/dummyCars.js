@@ -1,0 +1,80 @@
+export const initialCars = [
+  {
+    id: "car-101",
+    brand: "Tesla",
+    model: "Model 3 Performance",
+    year: 2024,
+    pricePerDay: 89,
+    fuelType: "Electric",
+    transmission: "Automatic",
+    seatingCapacity: 5,
+    availabilityStatus: "Available",
+    image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=800&q=80",
+    features: ["Autopilot", "360 Camera", "Heated Seats", "Supercharging"]
+  },
+  {
+    id: "car-102",
+    brand: "BMW",
+    model: "M4 Competition",
+    year: 2023,
+    pricePerDay: 140,
+    fuelType: "Petrol",
+    transmission: "Automatic",
+    seatingCapacity: 4,
+    availabilityStatus: "Available",
+    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80",
+    features: ["TwinPower Turbo", "Head-Up Display", "Harman Kardon"]
+  },
+  {
+    id: "car-103",
+    brand: "Mercedes-Benz",
+    model: "C-Class Coupe",
+    year: 2023,
+    pricePerDay: 95,
+    fuelType: "Hybrid",
+    transmission: "Automatic",
+    seatingCapacity: 5,
+    availabilityStatus: "Available",
+    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
+    features: ["MBUX System", "Ambient Light", "Sunroof"]
+  },
+  {
+    id: "car-104",
+    brand: "Porsche",
+    model: "911 Carrera S",
+    year: 2024,
+    pricePerDay: 220,
+    fuelType: "Petrol",
+    transmission: "Automatic",
+    seatingCapacity: 2,
+    availabilityStatus: "Booked",
+    image: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=800&q=80",
+    features: ["Sport Chrono", "Launch Control", "PASM Suspension"]
+  },
+  {
+    id: "car-105",
+    brand: "Toyota",
+    model: "RAV4 Hybrid AWD",
+    year: 2023,
+    pricePerDay: 62,
+    fuelType: "Hybrid",
+    transmission: "Automatic",
+    seatingCapacity: 5,
+    availabilityStatus: "Available",
+    image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80",
+    features: ["All-Wheel Drive", "Safety Sense", "Apple CarPlay"]
+  },
+  {
+    id: "car-106",
+    brand: "Ford",
+    model: "Mustang GT V8",
+    year: 2022,
+    pricePerDay: 110,
+    fuelType: "Petrol",
+    transmission: "Manual",
+    seatingCapacity: 4,
+    availabilityStatus: "Available",
+    image: "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=800&q=80",
+    features: ["5.0L V8 Engine", "Active Exhaust", "Track Apps"]
+  }
+];

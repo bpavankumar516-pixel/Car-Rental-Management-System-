@@ -1,122 +1,186 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import { AuthProvider } from './context/AuthContext';
+import { CarProvider } from './context/CarContext';
+import { CustomerProvider } from './context/CustomerContext';
+import { BookingProvider } from './context/BookingContext';
+import { ToastProvider } from './context/ToastContext';
+import ProtectedRoute from './components/layout/ProtectedRoute';
+import Sidebar from './components/layout/Sidebar';
+import Header from './components/layout/Header';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Pages
+import DashboardPage from './pages/DashboardPage';
+import CarsPage from './pages/CarsPage';
+import CustomersPage from './pages/CustomersPage';
+import BookingsPage from './pages/BookingsPage';
+
+// Modals
+import CarFormModal from './components/cars/CarFormModal';
+import CarDetailModal from './components/cars/CarDetailModal';
+import CustomerFormModal from './components/customers/CustomerFormModal';
+import NewBookingModal from './components/bookings/NewBookingModal';
+import BookingSummaryModal from './components/bookings/BookingSummaryModal';
+
+function MainApp() {
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [globalSearch, setGlobalSearch] = useState('');
+
+  // Modals state
+  const [carFormOpen, setCarFormOpen] = useState(false);
+  const [editingCar, setEditingCar] = useState(null);
+
+  const [carDetailOpen, setCarDetailOpen] = useState(false);
+  const [selectedCarDetail, setSelectedCarDetail] = useState(null);
+
+  const [customerFormOpen, setCustomerFormOpen] = useState(false);
+  const [editingCustomer, setEditingCustomer] = useState(null);
+
+  const [newBookingOpen, setNewBookingOpen] = useState(false);
+  const [preloadCarForBooking, setPreloadCarForBooking] = useState(null);
+
+  const [summaryModalOpen, setSummaryModalOpen] = useState(false);
+  const [summaryPayload, setSummaryPayload] = useState(null);
+
+  // Modal Handlers
+  const handleOpenAddCar = () => {
+    setEditingCar(null);
+    setCarFormOpen(true);
+  };
+
+  const handleOpenEditCar = (car) => {
+    setEditingCar(car);
+    setCarFormOpen(true);
+  };
+
+  const handleOpenCarDetail = (car) => {
+    setSelectedCarDetail(car);
+    setCarDetailOpen(true);
+  };
+
+  const handleOpenAddCustomer = () => {
+    setEditingCustomer(null);
+    setCustomerFormOpen(true);
+  };
+
+  const handleOpenEditCustomer = (customer) => {
+    setEditingCustomer(customer);
+    setCustomerFormOpen(true);
+  };
+
+  const handleOpenBookModal = (car = null) => {
+    setPreloadCarForBooking(car);
+    setNewBookingOpen(true);
+  };
+
+  const handleProceedToSummary = (payload) => {
+    setSummaryPayload(payload);
+    setNewBookingOpen(false);
+    setSummaryModalOpen(true);
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="flex h-screen bg-slate-950 text-slate-100 overflow-hidden font-sans">
+      
+      {/* Sidebar Navigation */}
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <div className="ticks"></div>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <Header
+          activeTab={activeTab}
+          globalSearch={globalSearch}
+          setGlobalSearch={setGlobalSearch}
+        />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <main className="flex-1 overflow-y-auto p-6 sm:p-8">
+          <div className="max-w-7xl mx-auto space-y-6">
+            {activeTab === 'dashboard' && (
+              <DashboardPage
+                setActiveTab={setActiveTab}
+                onOpenAddCar={handleOpenAddCar}
+                onOpenNewBooking={() => handleOpenBookModal()}
+                onOpenAddCustomer={handleOpenAddCustomer}
+              />
+            )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+            {activeTab === 'cars' && (
+              <CarsPage
+                onOpenAddModal={handleOpenAddCar}
+                onOpenEditModal={handleOpenEditCar}
+                onOpenDetailModal={handleOpenCarDetail}
+                onOpenBookModal={handleOpenBookModal}
+                globalSearch={globalSearch}
+              />
+            )}
+
+            {activeTab === 'customers' && (
+              <CustomersPage
+                onOpenAddCustomer={handleOpenAddCustomer}
+                onEditCustomer={handleOpenEditCustomer}
+              />
+            )}
+
+            {activeTab === 'bookings' && (
+              <BookingsPage
+                onOpenNewBooking={() => handleOpenBookModal()}
+              />
+            )}
+          </div>
+        </main>
+      </div>
+
+      {/* Global Modals */}
+      <CarFormModal
+        isOpen={carFormOpen}
+        onClose={() => setCarFormOpen(false)}
+        initialData={editingCar}
+      />
+
+      <CarDetailModal
+        isOpen={carDetailOpen}
+        onClose={() => setCarDetailOpen(false)}
+        car={selectedCarDetail}
+        onBook={handleOpenBookModal}
+      />
+
+      <CustomerFormModal
+        isOpen={customerFormOpen}
+        onClose={() => setCustomerFormOpen(false)}
+        initialData={editingCustomer}
+      />
+
+      <NewBookingModal
+        isOpen={newBookingOpen}
+        onClose={() => setNewBookingOpen(false)}
+        selectedCarPreload={preloadCarForBooking}
+        onProceedToSummary={handleProceedToSummary}
+      />
+
+      <BookingSummaryModal
+        isOpen={summaryModalOpen}
+        onClose={() => setSummaryModalOpen(false)}
+        summaryData={summaryPayload}
+        onConfirmed={() => setActiveTab('bookings')}
+      />
+
+    </div>
+  );
 }
 
-export default App
+export default function App() {
+  return (
+    <ToastProvider>
+      <AuthProvider>
+        <CarProvider>
+          <CustomerProvider>
+            <BookingProvider>
+              <ProtectedRoute>
+                <MainApp />
+              </ProtectedRoute>
+            </BookingProvider>
+          </CustomerProvider>
+        </CarProvider>
+      </AuthProvider>
+    </ToastProvider>
+  );
+}
