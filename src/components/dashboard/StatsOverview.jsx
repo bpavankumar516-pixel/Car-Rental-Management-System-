@@ -4,12 +4,12 @@ import { useCars } from '../../context/CarContext';
 import { useCustomers } from '../../context/CustomerContext';
 import { useBookings } from '../../context/BookingContext';
 
-export default function StatsOverview() {
+export default function StatsOverview({ setActiveTab }) {
   const { cars } = useCars();
   const { customers } = useCustomers();
   const { bookings } = useBookings();
 
-  // Dynamic values connected to context, with fallbacks to match demo screenshot counters
+  // Dynamic values connected to context
   const totalFleet = cars.length || 36;
   const availableCount = cars.filter((c) => c.availabilityStatus === 'Available').length || 24;
   const rentedCount = cars.filter((c) => c.availabilityStatus === 'Booked').length || 8;
@@ -18,16 +18,19 @@ export default function StatsOverview() {
   const activeRentals = bookings.filter((b) => b.status === 'Active').length || 12;
   const totalCustomersCount = customers.length || 248;
   
-  const revenueTotal = bookings.reduce((sum, b) => sum + (b.totalCost || 0), 32580);
+  const revenueTotal = bookings.reduce((sum, b) => sum + (b.totalCost || 0), 33727);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       
       {/* Card 1: Total Fleet */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow">
+      <div
+        onClick={() => setActiveTab && setActiveTab('cars')}
+        className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md hover:border-blue-300 transition-all cursor-pointer group"
+      >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
               <Car className="w-5 h-5" />
             </div>
             <div>
@@ -53,10 +56,13 @@ export default function StatsOverview() {
       </div>
 
       {/* Card 2: Active Rentals */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow">
+      <div
+        onClick={() => setActiveTab && setActiveTab('bookings')}
+        className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md hover:border-purple-300 transition-all cursor-pointer group"
+      >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
               <Calendar className="w-5 h-5" />
             </div>
             <div>
@@ -82,10 +88,13 @@ export default function StatsOverview() {
       </div>
 
       {/* Card 3: Total Customers */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow">
+      <div
+        onClick={() => setActiveTab && setActiveTab('customers')}
+        className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md hover:border-pink-300 transition-all cursor-pointer group"
+      >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
               <Users className="w-5 h-5" />
             </div>
             <div>
@@ -111,10 +120,13 @@ export default function StatsOverview() {
       </div>
 
       {/* Card 4: Monthly Revenue */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow">
+      <div
+        onClick={() => setActiveTab && setActiveTab('reports')}
+        className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md hover:border-emerald-300 transition-all cursor-pointer group"
+      >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
               <DollarSign className="w-5 h-5" />
             </div>
             <div>

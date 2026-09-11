@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { CarProvider } from './context/CarContext';
 import { CustomerProvider } from './context/CustomerContext';
@@ -14,20 +14,61 @@ import CarsPage from './pages/CarsPage';
 import CustomersPage from './pages/CustomersPage';
 import BookingsPage from './pages/BookingsPage';
 import ProfilePage from './pages/ProfilePage';
-import SettingsPage from './pages/SettingsPage';
-import PromotionsPage from './pages/PromotionsPage';
-import ContactPage from './pages/ContactPage';
+import AvailabilityPage from './pages/AvailabilityPage';
+import ReportsPage from './pages/ReportsPage';
+import PaymentsPage from './pages/PaymentsPage';
 
 // Modals
 import CarFormModal from './components/cars/CarFormModal';
-import CarDetailModal from './components/cars/CarDetailModal';
 import CustomerFormModal from './components/customers/CustomerFormModal';
 import NewBookingModal from './components/bookings/NewBookingModal';
 import BookingSummaryModal from './components/bookings/BookingSummaryModal';
 
+const VALID_TABS = ['dashboard', 'cars', 'customers', 'bookings', 'availability', 'reports', 'payments', 'profile'];
+
 function MainApp() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const getInitialTab = () => {
+    // 1. Try URL hash (e.g. #customers -> 'customers')
+    const hash = window.location.hash.replace('#', '').trim();
+    if (VALID_TABS.includes(hash)) {
+      return hash;
+    }
+    // 2. Try localStorage
+    const savedTab = localStorage.getItem('carvo_active_tab');
+    if (VALID_TABS.includes(savedTab)) {
+      return savedTab;
+    }
+    // 3. Fallback default
+    return 'dashboard';
+  };
+
+  const [activeTab, setActiveTabState] = useState(getInitialTab);
   const [globalSearch, setGlobalSearch] = useState('');
+
+  const setActiveTab = (tab) => {
+    if (!VALID_TABS.includes(tab)) return;
+    setActiveTabState(tab);
+    localStorage.setItem('carvo_active_tab', tab);
+    window.location.hash = tab;
+  };
+
+  useEffect(() => {
+    // Sync current tab to hash on mount if not already present
+    if (!window.location.hash || !VALID_TABS.includes(window.location.hash.replace('#', ''))) {
+      window.location.hash = activeTab;
+    }
+
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '').trim();
+      if (VALID_TABS.includes(hash)) {
+        setActiveTabState(hash);
+        localStorage.setItem('carvo_active_tab', hash);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [activeTab]);
 
   // Modals state
   const [carFormOpen, setCarFormOpen] = useState(false);
@@ -58,7 +99,7 @@ function MainApp() {
 
   const handleOpenCarDetail = (car) => {
     setSelectedCarDetail(car);
-    setCarDetailOpen(true);
+    setActiveTab('cars');
   };
 
   const handleOpenAddCustomer = () => {
@@ -115,6 +156,8 @@ function MainApp() {
                 onOpenDetailModal={handleOpenCarDetail}
                 onOpenBookModal={handleOpenBookModal}
                 globalSearch={globalSearch}
+                selectedCarForDetail={selectedCarDetail}
+                setSelectedCarForDetail={setSelectedCarDetail}
               />
             )}
 
@@ -131,20 +174,20 @@ function MainApp() {
               />
             )}
 
-            {activeTab === 'promotions' && (
-              <PromotionsPage />
+            {activeTab === 'availability' && (
+              <AvailabilityPage />
             )}
 
-            {activeTab === 'contact' && (
-              <ContactPage />
+            {activeTab === 'reports' && (
+              <ReportsPage />
+            )}
+
+            {activeTab === 'payments' && (
+              <PaymentsPage />
             )}
 
             {activeTab === 'profile' && (
               <ProfilePage />
-            )}
-
-            {activeTab === 'settings' && (
-              <SettingsPage />
             )}
           </div>
         </main>
@@ -155,13 +198,6 @@ function MainApp() {
         isOpen={carFormOpen}
         onClose={() => setCarFormOpen(false)}
         initialData={editingCar}
-      />
-
-      <CarDetailModal
-        isOpen={carDetailOpen}
-        onClose={() => setCarDetailOpen(false)}
-        car={selectedCarDetail}
-        onBook={handleOpenBookModal}
       />
 
       <CustomerFormModal

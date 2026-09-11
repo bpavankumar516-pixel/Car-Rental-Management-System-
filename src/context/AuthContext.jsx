@@ -105,9 +105,23 @@ export function AuthProvider({ children }) {
     localStorage.setItem('rental_registered_users', JSON.stringify(registeredUsers));
   }, [registeredUsers]);
 
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('rental_theme_mode');
+    return saved === 'dark';
+  });
+
   useEffect(() => {
-    localStorage.setItem('rental_system_settings', JSON.stringify(settings));
-  }, [settings]);
+    localStorage.setItem('rental_theme_mode', darkMode ? 'dark' : 'light');
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+  };
 
   const login = (email, password) => {
     const cleanEmail = email.trim().toLowerCase();
@@ -206,6 +220,8 @@ export function AuthProvider({ children }) {
       value={{
         user,
         settings,
+        darkMode,
+        toggleDarkMode,
         login,
         register,
         logout,

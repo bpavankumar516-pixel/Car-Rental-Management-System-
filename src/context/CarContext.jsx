@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { initialCars } from '../data/dummyCars';
+import { fetchCarsFromAPI, addCarToAPI, updateCarInAPI, deleteCarFromAPI } from '../services/api';
 
 const CarContext = createContext();
 
@@ -9,57 +10,41 @@ export function CarProvider({ children }) {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [loading, setLoading] = useState(cars.length === 0);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchCarsFromAPI = async () => {
-      if (cars.length > 0) {
-        setLoading(false);
-        return;
-      }
+  const loadCarsFromAPI = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // GET Request (Network Tab: GET https://dummyjson.com/products/category/vehicle)
+      const apiData = await fetchCarsFromAPI();
 
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch('https://dummyjson.com/products/category/vehicle');
-        let apiData = [];
-        
-        if (res.ok) {
-          const data = await res.json();
-          apiData = data.products || [];
-        }
-
-        // If DummyJSON category/vehicle is empty or fails, fetch general products or fallback
-        if (!apiData || apiData.length === 0) {
-          const fallbackRes = await fetch('https://dummyjson.com/products?limit=10');
-          if (fallbackRes.ok) {
-            const fallbackData = await fallbackRes.json();
-            apiData = fallbackData.products || [];
-          }
-        }
-
-        // Transform API products into Car models with realistic specs
+      setCars((prev) => {
+        const customCars = prev.filter((c) => c.id.startsWith('car-') && !initialCars.some((ic) => ic.id === c.id));
         const mappedCars = initialCars.map((defCar, index) => {
           const apiItem = apiData[index];
           return {
             ...defCar,
-            image: apiItem?.thumbnail || apiItem?.images?.[0] || defCar.image,
+            image: defCar.image || apiItem?.thumbnail || apiItem?.images?.[0],
           };
         });
+        const combined = [...customCars, ...mappedCars];
+        localStorage.setItem('rental_cars_data', JSON.stringify(combined));
+        return combined;
+      });
+    } catch (err) {
+      console.warn('DummyJSON fetch error, using robust fallback cars:', err);
+      setCars(initialCars);
+      localStorage.setItem('rental_cars_data', JSON.stringify(initialCars));
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        setCars(mappedCars);
-        localStorage.setItem('rental_cars_data', JSON.stringify(mappedCars));
-      } catch (err) {
-        console.warn('DummyJSON fetch error, using robust fallback cars:', err);
-        setCars(initialCars);
-        localStorage.setItem('rental_cars_data', JSON.stringify(initialCars));
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCarsFromAPI();
+  useEffect(() => {
+    // ALWAYS trigger loadCarsFromAPI on mount so GET request appears in DevTools Network tab
+    loadCarsFromAPI();
   }, []);
 
   useEffect(() => {
@@ -68,25 +53,36 @@ export function CarProvider({ children }) {
     }
   }, [cars]);
 
-  const addCar = (newCarData) => {
+  const addCar = async (newCarData) => {
     const newCar = {
       id: `car-${Date.now()}`,
       ...newCarData,
       availabilityStatus: newCarData.availabilityStatus || 'Available',
       image: newCarData.image || 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80'
     };
+
     setCars((prev) => [newCar, ...prev]);
+
+    // POST Request (Network Tab: POST https://dummyjson.com/products/add)
+    await addCarToAPI(newCarData);
+
     return newCar;
   };
 
-  const updateCar = (id, updatedFields) => {
+  const updateCar = async (id, updatedFields) => {
     setCars((prev) =>
       prev.map((c) => (c.id === id ? { ...c, ...updatedFields } : c))
     );
+
+    // PUT Request (Network Tab: PUT https://dummyjson.com/products/:id)
+    await updateCarInAPI(id, updatedFields);
   };
 
-  const deleteCar = (id) => {
+  const deleteCar = async (id) => {
     setCars((prev) => prev.filter((c) => c.id !== id));
+
+    // DELETE Request (Network Tab: DELETE https://dummyjson.com/products/:id)
+    await deleteCarFromAPI(id);
   };
 
   const updateCarAvailability = (id, status) => {
@@ -104,7 +100,8 @@ export function CarProvider({ children }) {
         addCar,
         updateCar,
         deleteCar,
-        updateCarAvailability
+        updateCarAvailability,
+        reloadCars: loadCarsFromAPI
       }}
     >
       {children}

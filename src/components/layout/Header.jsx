@@ -1,9 +1,9 @@
 import React from 'react';
-import { Search, Bell, Settings, ChevronDown, User } from 'lucide-react';
+import { Search, Bell, ChevronDown, ChevronRight, Home, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
-export default function Header({ globalSearch, setGlobalSearch, setActiveTab }) {
-  const { user } = useAuth();
+export default function Header({ activeTab, globalSearch, setGlobalSearch, setActiveTab }) {
+  const { user, darkMode, toggleDarkMode } = useAuth();
 
   const getInitials = (name) => {
     if (!name) return 'PK';
@@ -12,26 +12,70 @@ export default function Header({ globalSearch, setGlobalSearch, setActiveTab }) 
     return name.substring(0, 2).toUpperCase();
   };
 
+  const getBreadcrumbLabel = (tab) => {
+    switch (tab) {
+      case 'dashboard': return 'Dashboard';
+      case 'cars': return 'Vehicle Inventory';
+      case 'availability': return 'Car Availability Control';
+      case 'customers': return 'Customer Directory';
+      case 'bookings': return 'Rental Reservations';
+      case 'reports': return 'Reports & Analytics';
+      case 'payments': return 'Payment Transactions';
+      case 'profile': return 'My Profile';
+      default: return 'Overview';
+    }
+  };
+
   return (
-    <header className="h-16 bg-white border-b border-slate-200/80 px-6 flex items-center justify-between sticky top-0 z-20 shadow-xs">
+    <header className="h-16 bg-white border-b border-slate-200/80 px-6 flex items-center justify-between sticky top-0 z-20 shadow-xs gap-4">
       
-      {/* Left: Search Bar */}
-      <div className="relative w-72">
-        <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-        <input
-          type="text"
-          placeholder="Search cars, customers, reservations..."
-          value={globalSearch}
-          onChange={(e) => setGlobalSearch(e.target.value)}
-          className="w-full bg-slate-100/80 border-none rounded-full pl-9 pr-4 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
-        />
+      {/* Left: Breadcrumbs & Search Bar */}
+      <div className="flex items-center gap-6">
+        
+        {/* Breadcrumb Navigation */}
+        <div className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-slate-500">
+          <button
+            onClick={() => setActiveTab && setActiveTab('dashboard')}
+            className="flex items-center gap-1 hover:text-red-500 transition-colors cursor-pointer"
+          >
+            <Home className="w-3.5 h-3.5" />
+            <span>Home</span>
+          </button>
+          <ChevronRight className="w-3 h-3 text-slate-300" />
+          <span className="text-slate-900 font-bold">{getBreadcrumbLabel(activeTab)}</span>
+        </div>
+
+        {/* Search Bar */}
+        <div className="relative w-64 sm:w-72">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            placeholder="Search cars, customers, reservations..."
+            value={globalSearch}
+            onChange={(e) => setGlobalSearch(e.target.value)}
+            className="w-full bg-slate-100/80 border-none rounded-full pl-9 pr-4 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all"
+          />
+        </div>
       </div>
 
       {/* Right Tools & User Profile */}
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-4">
         
+        {/* Theme Mode Toggle (Sun/Moon) */}
+        <button
+          onClick={toggleDarkMode}
+          title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          className="p-2 rounded-xl border border-slate-200/80 bg-slate-100/60 hover:bg-slate-200/80 text-slate-700 transition-all cursor-pointer shadow-2xs"
+        >
+          {darkMode ? (
+            <Sun className="w-4 h-4 text-amber-400 fill-amber-400" />
+          ) : (
+            <Moon className="w-4 h-4 text-slate-600" />
+          )}
+        </button>
+
         {/* Language Selector */}
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200/80 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 cursor-pointer transition-colors">
+        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200/80 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 cursor-pointer transition-colors">
           <span>English</span>
           <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
         </div>
@@ -45,15 +89,6 @@ export default function Header({ globalSearch, setGlobalSearch, setActiveTab }) 
           <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white">
             3
           </span>
-        </button>
-
-        {/* Settings Gear */}
-        <button
-          onClick={() => setActiveTab && setActiveTab('settings')}
-          title="Open Settings"
-          className="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
-        >
-          <Settings className="w-4 h-4" />
         </button>
 
         {/* User Profile Clickable Area */}

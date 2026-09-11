@@ -8,7 +8,11 @@ export default function CarCard({ car, onViewDetails, onEdit, onDelete, onBook }
     <div className="bg-white border border-slate-200/80 rounded-2xl overflow-hidden hover:shadow-md transition-all duration-300 shadow-xs group flex flex-col justify-between">
       
       {/* Image & Status Badge */}
-      <div className="relative h-48 overflow-hidden bg-slate-100">
+      <div
+        onClick={() => onViewDetails(car)}
+        className="relative h-48 overflow-hidden bg-slate-100 cursor-pointer"
+        title="View Car Details"
+      >
         <img
           src={car.image}
           alt={`${car.brand} ${car.model}`}
@@ -32,7 +36,11 @@ export default function CarCard({ car, onViewDetails, onEdit, onDelete, onBook }
       <div className="p-5 space-y-4 flex-1 flex flex-col justify-between">
         <div>
           <div className="flex items-baseline justify-between">
-            <h3 className="text-base font-bold text-slate-900 group-hover:text-red-500 transition-colors">
+            <h3
+              onClick={() => onViewDetails(car)}
+              className="text-base font-bold text-slate-900 group-hover:text-red-500 transition-colors cursor-pointer"
+              title="View Car Details"
+            >
               {car.model}
             </h3>
             <span className="text-xs text-slate-400 font-medium">{car.year}</span>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Search, UserPlus, Edit3, Trash2, Mail, Phone, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, UserPlus, Edit3, Trash2, Mail, Phone, MapPin, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 import { useCustomers } from '../../context/CustomerContext';
 import { useToast } from '../../context/ToastContext';
 import ConfirmDialog from '../common/ConfirmDialog';
 
 export default function CustomerList({ onOpenAddModal, onEditCustomer }) {
-  const { customers, deleteCustomer } = useCustomers();
+  const { customers, loading, deleteCustomer, reloadCustomers } = useCustomers();
   const { addToast } = useToast();
 
   const [search, setSearch] = useState('');
@@ -36,6 +36,12 @@ export default function CustomerList({ onOpenAddModal, onEditCustomer }) {
     }
   };
 
+  const handleSyncGetAPI = async () => {
+    addToast('Executing GET https://dummyjson.com/users?limit=30 ...', 'info');
+    await reloadCustomers();
+    addToast('GET API Users refreshed successfully! (Check Network tab)', 'success');
+  };
+
   return (
     <div className="space-y-6">
       
@@ -54,18 +60,35 @@ export default function CustomerList({ onOpenAddModal, onEditCustomer }) {
           />
         </div>
 
-        {/* Add Customer Button */}
-        <button
-          onClick={onOpenAddModal}
-          className="w-full sm:w-auto px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-red-500/25 transition-all cursor-pointer"
-        >
-          <UserPlus className="w-4 h-4" /> Add New Customer
-        </button>
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <button
+            onClick={handleSyncGetAPI}
+            disabled={loading}
+            title="Trigger HTTP GET request to DummyJSON API"
+            className="flex-1 sm:flex-none px-4 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold rounded-xl text-xs flex items-center justify-center gap-2 border border-blue-200/80 transition-all cursor-pointer disabled:opacity-50"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            <span>Fetch Live GET API</span>
+          </button>
+
+          <button
+            onClick={onOpenAddModal}
+            className="flex-1 sm:flex-none px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-red-500/25 transition-all cursor-pointer shrink-0"
+          >
+            <UserPlus className="w-4 h-4" /> Add New Customer
+          </button>
+        </div>
       </div>
 
       {/* Customer Directory Table */}
       <div className="bg-white border border-slate-200/80 rounded-2xl overflow-hidden shadow-xs">
-        {paginatedList.length === 0 ? (
+        {loading ? (
+          <div className="py-16 text-center text-slate-500 text-xs space-y-2">
+            <RefreshCw className="w-6 h-6 text-blue-500 animate-spin mx-auto" />
+            <p className="font-bold text-slate-700">Loading Customer Records from API Service...</p>
+          </div>
+        ) : paginatedList.length === 0 ? (
           <div className="py-12 text-center text-slate-500 text-sm">
             No customers found matching search criteria.
           </div>
