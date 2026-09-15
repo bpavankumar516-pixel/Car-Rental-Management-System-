@@ -6,6 +6,7 @@ import {
   Calendar,
   CreditCard,
   User,
+  Settings,
   LogOut,
   Activity,
   BarChart3
@@ -53,14 +54,14 @@ export default function Sidebar({ activeTab, setActiveTab }) {
     {
       title: 'Financial & Reports',
       items: [
-        { id: 'reports', label: 'Reports & Analytics', icon: BarChart3 },
-        { id: 'payments', label: 'Payments', icon: CreditCard }
+        { id: 'reports', label: 'Reports & Analytics', icon: BarChart3 }
       ]
     },
     {
-      title: 'Account',
+      title: 'Account & System',
       items: [
-        { id: 'profile', label: 'My Profile', icon: User }
+        { id: 'profile', label: 'My Profile', icon: User },
+        { id: 'settings', label: 'Settings', icon: Settings }
       ]
     }
   ];
@@ -95,7 +96,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
               <div className="space-y-0.5">
                 {section.items.map((item) => {
                   const Icon = item.icon;
-                  const isActive = activeTab === item.id || (activeTab === 'cars' && item.id === 'cars') || (activeTab === 'bookings' && item.id === 'bookings');
+                  const isActive = activeTab === item.id;
 
                   return (
                     <button

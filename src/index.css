@@ -1,12 +1,113 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 min-h-screen font-sans antialiased selection:bg-red-500 selection:text-white;
+    @apply bg-slate-50 text-slate-900 min-h-screen font-sans antialiased selection:bg-red-500 selection:text-white transition-colors duration-300;
   }
 }
 
-/* Custom Scrollbars for Light Theme */
+/* Global Dark Mode Styling Rules */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+/* Main Background Overrides in Dark Mode */
+html.dark .bg-slate-50,
+html.dark .bg-slate-50\/50,
+html.dark .bg-slate-50\/60,
+html.dark .bg-slate-50\/80 {
+  background-color: #0f172a !important;
+}
+
+html.dark main {
+  background-color: #0f172a !important;
+}
+
+/* Surface, Cards, Sidebar & Header Overrides */
+html.dark .bg-white,
+html.dark header,
+html.dark aside,
+html.dark .bg-white\/95 {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+html.dark .bg-slate-100,
+html.dark .bg-slate-100\/60,
+html.dark .bg-slate-100\/80 {
+  background-color: #334155 !important;
+}
+
+/* Hover State Overrides in Dark Mode */
+html.dark .hover\:bg-slate-50:hover,
+html.dark .hover\:bg-slate-100:hover,
+html.dark .hover\:bg-slate-100\/80:hover,
+html.dark .hover\:bg-slate-200:hover,
+html.dark .hover\:bg-slate-50\/80:hover {
+  background-color: #334155 !important;
+}
+
+/* Text Overrides in Dark Mode */
+html.dark .text-slate-900,
+html.dark .text-slate-800,
+html.dark .text-slate-700 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-600,
+html.dark .text-slate-500 {
+  color: #cbd5e1 !important;
+}
+
+html.dark .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+/* Border Overrides in Dark Mode */
+html.dark .border-slate-200,
+html.dark .border-slate-200\/60,
+html.dark .border-slate-200\/80,
+html.dark .border-slate-200\/90,
+html.dark .border-slate-100,
+html.dark .border-slate-300 {
+  border-color: #334155 !important;
+}
+
+html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+html.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #334155 !important;
+}
+
+/* Table Head Overrides in Dark Mode */
+html.dark thead,
+html.dark thead tr,
+html.dark thead .bg-slate-50 {
+  background-color: #0f172a !important;
+  color: #94a3b8 !important;
+}
+
+/* Form Inputs, Selects & Textareas in Dark Mode */
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Custom Scrollbars for Light and Dark Themes */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -20,4 +121,15 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }

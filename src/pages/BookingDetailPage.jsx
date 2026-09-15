@@ -188,11 +188,41 @@ export default function BookingDetailPage({ booking, onBack, onComplete, onCance
 
           {/* Pricing & Invoice Total */}
           <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-4">
-            <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
-              <DollarSign className="w-4 h-4 text-emerald-600" /> Payment & Billing Summary
-            </h3>
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                <DollarSign className="w-4 h-4 text-emerald-600" /> Payment & Billing Summary
+              </h3>
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${
+                  booking.paymentStatus === 'Paid' || booking.status === 'Completed'
+                    ? 'bg-emerald-500 text-white'
+                    : booking.paymentStatus === 'Refunded' || booking.status === 'Cancelled'
+                    ? 'bg-slate-200 text-slate-700'
+                    : 'bg-amber-500 text-white'
+                }`}
+              >
+                {booking.paymentStatus || (booking.status === 'Completed' ? 'Paid' : booking.status === 'Cancelled' ? 'Refunded' : 'Pending')}
+              </span>
+            </div>
 
             <div className="space-y-2 text-xs text-slate-600">
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-slate-400 font-medium">Transaction Ref:</span>
+                  <span className="font-mono font-bold text-slate-900">{booking.transactionId || 'TXN-884192'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-400 font-medium">Payment Method:</span>
+                  <span className="font-bold text-slate-900">{booking.paymentMethod || 'Credit Card'}</span>
+                </div>
+                {(booking.paidAt || booking.status === 'Completed') && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-medium">Date Paid:</span>
+                    <span className="font-bold text-emerald-600">{booking.paidAt || booking.createdAt || '2026-09-08'}</span>
+                  </div>
+                )}
+              </div>
+
               <div className="flex justify-between py-1">
                 <span>Daily Rental Fee ({booking.totalDays} days @ ${booking.pricePerDay || 150}/day)</span>
                 <span className="font-bold text-slate-900">${(booking.totalDays || 1) * (booking.pricePerDay || 150)}</span>
@@ -207,7 +237,7 @@ export default function BookingDetailPage({ booking, onBack, onComplete, onCance
               </div>
 
               <div className="pt-3 border-t border-slate-200 flex items-center justify-between text-base font-black text-slate-900">
-                <span>Total Amount Due</span>
+                <span>Total Amount</span>
                 <span className="text-emerald-600 text-xl">${booking.totalCost}</span>
               </div>
             </div>

@@ -16,7 +16,7 @@ import BookingsPage from './pages/BookingsPage';
 import ProfilePage from './pages/ProfilePage';
 import AvailabilityPage from './pages/AvailabilityPage';
 import ReportsPage from './pages/ReportsPage';
-import PaymentsPage from './pages/PaymentsPage';
+import SettingsPage from './pages/SettingsPage';
 
 // Modals
 import CarFormModal from './components/cars/CarFormModal';
@@ -24,7 +24,7 @@ import CustomerFormModal from './components/customers/CustomerFormModal';
 import NewBookingModal from './components/bookings/NewBookingModal';
 import BookingSummaryModal from './components/bookings/BookingSummaryModal';
 
-const VALID_TABS = ['dashboard', 'cars', 'customers', 'bookings', 'availability', 'reports', 'payments', 'profile'];
+const VALID_TABS = ['dashboard', 'cars', 'customers', 'bookings', 'availability', 'reports', 'profile', 'settings'];
 
 function MainApp() {
   const getInitialTab = () => {
@@ -182,12 +182,12 @@ function MainApp() {
               <ReportsPage />
             )}
 
-            {activeTab === 'payments' && (
-              <PaymentsPage />
-            )}
-
             {activeTab === 'profile' && (
               <ProfilePage />
+            )}
+
+            {activeTab === 'settings' && (
+              <SettingsPage setActiveTab={setActiveTab} />
             )}
           </div>
         </main>

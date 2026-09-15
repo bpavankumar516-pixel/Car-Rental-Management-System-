@@ -36,12 +36,6 @@ export default function CustomerList({ onOpenAddModal, onEditCustomer }) {
     }
   };
 
-  const handleSyncGetAPI = async () => {
-    addToast('Executing GET https://dummyjson.com/users?limit=30 ...', 'info');
-    await reloadCustomers();
-    addToast('GET API Users refreshed successfully! (Check Network tab)', 'success');
-  };
-
   return (
     <div className="space-y-6">
       
@@ -60,25 +54,13 @@ export default function CustomerList({ onOpenAddModal, onEditCustomer }) {
           />
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2 w-full sm:w-auto">
-          <button
-            onClick={handleSyncGetAPI}
-            disabled={loading}
-            title="Trigger HTTP GET request to DummyJSON API"
-            className="flex-1 sm:flex-none px-4 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold rounded-xl text-xs flex items-center justify-center gap-2 border border-blue-200/80 transition-all cursor-pointer disabled:opacity-50"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-            <span>Fetch Live GET API</span>
-          </button>
-
-          <button
-            onClick={onOpenAddModal}
-            className="flex-1 sm:flex-none px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-red-500/25 transition-all cursor-pointer shrink-0"
-          >
-            <UserPlus className="w-4 h-4" /> Add New Customer
-          </button>
-        </div>
+        {/* Add Customer Button */}
+        <button
+          onClick={onOpenAddModal}
+          className="w-full sm:w-auto px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-red-500/25 transition-all cursor-pointer shrink-0"
+        >
+          <UserPlus className="w-4 h-4" /> Add New Customer
+        </button>
       </div>
 
       {/* Customer Directory Table */}

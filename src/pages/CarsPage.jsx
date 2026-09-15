@@ -86,12 +86,6 @@ export default function CarsPage({
     }
   };
 
-  const handleSyncGetAPI = async () => {
-    addToast('Executing GET https://dummyjson.com/products/category/vehicle ...', 'info');
-    await reloadCars();
-    addToast('GET API Vehicles refreshed successfully! (Check Network tab)', 'success');
-  };
-
   if (activeSelectedCar) {
     return (
       <CarDetailPage
@@ -113,24 +107,12 @@ export default function CarsPage({
           <p className="text-xs text-slate-500 mt-0.5">Total Fleet: {cars.length} Vehicles in System</p>
         </div>
 
-        <div className="flex items-center gap-2 w-full sm:w-auto">
-          <button
-            onClick={handleSyncGetAPI}
-            disabled={loading}
-            title="Trigger HTTP GET request to DummyJSON Products API"
-            className="flex-1 sm:flex-none px-4 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold rounded-xl text-xs flex items-center justify-center gap-2 border border-blue-200/80 transition-all cursor-pointer disabled:opacity-50"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-            <span>Fetch Live GET API</span>
-          </button>
-
-          <button
-            onClick={onOpenAddModal}
-            className="flex-1 sm:flex-none px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-red-500/25 transition-all cursor-pointer"
-          >
-            <PlusCircle className="w-4 h-4" /> Add New Vehicle
-          </button>
-        </div>
+        <button
+          onClick={onOpenAddModal}
+          className="w-full sm:w-auto px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-red-500/25 transition-all cursor-pointer"
+        >
+          <PlusCircle className="w-4 h-4" /> Add New Vehicle
+        </button>
       </div>
 
       {/* Filters Bar */}
